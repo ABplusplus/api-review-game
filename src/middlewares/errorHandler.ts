@@ -24,7 +24,15 @@ const errorHandler = (
   res.status(statusCode).json({
     status: statusCode,
     message: message,
-  }); 
+  });
+
+ /* const notFoundHandler = (req: Request, res: Response, next: NextFunction): void => {
+    res.status(404).json({
+      status: 404,
+      message: "Resource not found",
+    });
+  };*/
+
 };
 
 export default errorHandler;

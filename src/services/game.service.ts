@@ -1,6 +1,8 @@
 import { GameDTO } from "../dto/game.dto";
 import { Console } from "../models/console.model";
 import { Game } from "../models/game.model";
+import { notFound } from "../error/NotFoundError";
+
 
 export class GameService {
   public async getAllGames(): Promise<GameDTO[]> {
@@ -13,6 +15,47 @@ export class GameService {
       ],
     });
   }
+  
+
+  public async getGameById(id: number): Promise<GameDTO | null> {
+    const game = await Game.findByPk(id) 
+    if(!game) {
+      notFound("Game not found");
+    }else{
+      return Game.findByPk(id);
+    }
+  }
+
+  
+  public async createGame( title: string, consoleId: number): Promise<GameDTO> {
+    return Game.create({ title: title, console_id: consoleId });
+  }
+
+
+  public async updateGame(id: number, title: string, consoleId: number): Promise<GameDTO | null> {
+    const game = await Game.findByPk(id);
+
+    const console = await Console.findByPk(consoleId);
+    if (!console) {
+      throw { status: 400, message: "Invalid Console ID" };
+    }
+    
+    if (game) {
+      game.title = title;
+      game.console_id = consoleId;
+      await game.save();
+      return game;
+    }
+    else{
+      notFound("Game not found");
+    }
+  }
+  
+
 }
+
+
+
+
 
 export const gameService = new GameService();

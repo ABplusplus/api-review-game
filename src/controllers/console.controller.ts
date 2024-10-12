@@ -25,7 +25,7 @@ export class ConsoleController extends Controller {
     const { name, manufacturer } = requestBody;
     return consoleService.createConsole(name, manufacturer);
   }
-
+  
   // Supprime une console par ID
   @Delete("{id}")
   public async deleteConsole(@Path() id: number): Promise<void> {
