@@ -46,10 +46,10 @@ Permet d'être lancé sans compilation et de relancer dynamiquement l'applicatio
     5) Développer la route POST /reviews : **/!\ Le jeu de la review ne sera pas créé dans cette route. Il faut que le jeu existe déjà.** [X]
     6) Développer la route PATCH /reviews/{id} [X]
 5) 
-    1) Mettre à jour la route DELETE /consoles/{id} afin d'empêcher la suppression si une review d'un de ses jeux existe
-    2) Développer la route DELETE /games/{id} en empêchant la suppression du jeu si une review existe
-    3) Développer la route DELETE /reviews/{id}
-6) Renvoyer la liste des jeux de la consoles sur la route GET /consoles/{id}/games
+    1) Mettre à jour la route DELETE /consoles/{id} afin d'empêcher la suppression si une review d'un de ses jeux existe [X]
+    2) Développer la route DELETE /games/{id} en empêchant la suppression du jeu si une review existe [X]
+    3) Développer la route DELETE /reviews/{id} [X]
+6) Renvoyer la liste des jeux de la consoles sur la route GET /consoles/{id}/games [X]
 7) Renvoyer la liste des reviews du jeu sur la route GET /games/{id}/reviews
 
 ## Exercice bonus

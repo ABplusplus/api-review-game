@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post, Route, Tags } from "tsoa";
+import { Body, Controller, Get, Patch, Post, Delete, Route, Tags } from "tsoa";
 import { GameDTO } from "../dto/game.dto";
 import { gameService } from "../services/game.service";
 
@@ -44,5 +44,10 @@ export class GameController extends Controller {
     return gameService.updateGame(id, title, console.id);
   }
 
+
+  @Delete("{id}")
+  public async deleteGame(id: number): Promise<void> {
+    await gameService.deleteGame(id);
+  }
 }
 

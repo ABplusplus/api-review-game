@@ -1,15 +1,19 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database"; // Connexion à la base de données
+import { Game } from "./game.model";
+
 export interface ConsoleAttributes {
   id?: number;
   name: string;
   manufacturer: string;
+  games?: Game[];
 }
 
 export class Console extends Model<ConsoleAttributes> implements ConsoleAttributes {
   public id!: number;
   public name!: string;
   public manufacturer!: string;
+  public games!: Game[];
 }
 
 Console.init(
@@ -33,3 +37,4 @@ Console.init(
     tableName: "consoles",
   }
 );
+

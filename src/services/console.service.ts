@@ -1,14 +1,15 @@
 import { Console } from "../models/console.model";
+import { Game } from "../models/game.model";
+import { Review } from "../models/review.model";
 import { notFound } from "../error/NotFoundError";
+
 
 export class ConsoleService {
 
-  // Récupère toutes les consoles
   public async getAllConsoles(): Promise<Console[]> {
     return await Console.findAll();
   }
 
-  // Récupère une console par ID
   public async getConsoleById(id: number): Promise<Console | null> {
     const console = await Console.findByPk(id);
     if (!console) {
@@ -18,7 +19,6 @@ export class ConsoleService {
       return Console.findByPk(id);    }
   }
 
-  // Crée une nouvelle console
   public async createConsole(
     name: string,
     manufacturer: string
@@ -26,12 +26,34 @@ export class ConsoleService {
     return Console.create({ name: name, manufacturer: manufacturer });
   }
 
-  // Supprime une console par ID
+  
   public async deleteConsole(id: number): Promise<void> {
     const console = await Console.findByPk(id);
-    if (console) {
-      console.destroy();
+    if (!console) {
+      notFound("Console not found");
     }
+    
+    const games = await Game.findAll({
+       where: {
+         console_id: id 
+        } 
+      });
+    
+    
+    const gameIds = games.map(game => game.id);
+    const reviews = await Review.findAll({
+       where: { 
+        game_id: gameIds
+       } 
+      });
+  
+    if (reviews.length > 0) {
+      throw {status : 409 , message : "Cannot delete game because reviews exist for this game"};
+    }
+  
+    
+    await console.destroy();
+  
   }
 
   // Met à jour une console
@@ -51,6 +73,7 @@ export class ConsoleService {
       notFound("Console not found");
     }
   }
+
 }
 
 export const consoleService = new ConsoleService();

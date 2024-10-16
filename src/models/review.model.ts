@@ -41,4 +41,4 @@ Review.init(
     tableName: "reviews",
   }
 )
-
+Review.belongsTo(Game, { foreignKey: "game_id", as: "game" });
