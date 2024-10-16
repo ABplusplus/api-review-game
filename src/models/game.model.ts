@@ -1,12 +1,14 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database"; // Connection à la base de données
 import { Console } from "./console.model";
+import { Review } from "./review.model";
 
 export interface GameAttributes {
   id?: number;
   title: string;
   console_id: number;
   console?: Console;
+  reviews?: Review[];
 }
 
 export class Game extends Model<GameAttributes> implements GameAttributes {
@@ -14,6 +16,7 @@ export class Game extends Model<GameAttributes> implements GameAttributes {
   public title!: string;
   public console_id!: number;
   public console!: Console;
+  public reviews!: Review[];
 }
 
 Game.init(

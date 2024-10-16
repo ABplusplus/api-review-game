@@ -41,4 +41,7 @@ Review.init(
     tableName: "reviews",
   }
 )
+
+Game.hasMany(Review, { foreignKey: "game_id", as: "reviews", sourceKey: "id" });
+
 Review.belongsTo(Game, { foreignKey: "game_id", as: "game" });

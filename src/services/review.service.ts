@@ -1,13 +1,12 @@
 import { ReviewDTO } from "../dto/review.dto";
-//import { Game } from "../models/game.model";
 import { Review } from "../models/review.model";
 import { notFound } from "../error/NotFoundError";
+
 
 export class ReviewService {
 
     public async getAllReviews(): Promise<ReviewDTO[]> {
         return Review.findAll();
-        
     }
 
     public async getReviewById(id: number): Promise<ReviewDTO | null> {
@@ -17,6 +16,16 @@ export class ReviewService {
         } else {
             return Review.findByPk(id);
         }
+    }
+
+    public async getReviewsByGameId(id: number): Promise< ReviewDTO[] | null > {
+        const review = Review.findAll({
+            where: { game_id: id }
+            })
+            if (!review) {
+                notFound("Game not found");
+            }
+        return review;
     }
 
     public async createReview(

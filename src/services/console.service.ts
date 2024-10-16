@@ -32,14 +32,11 @@ export class ConsoleService {
     if (!console) {
       notFound("Console not found");
     }
-    
     const games = await Game.findAll({
        where: {
          console_id: id 
         } 
       });
-    
-    
     const gameIds = games.map(game => game.id);
     const reviews = await Review.findAll({
        where: { 
@@ -50,13 +47,10 @@ export class ConsoleService {
     if (reviews.length > 0) {
       throw {status : 409 , message : "Cannot delete game because reviews exist for this game"};
     }
-  
-    
     await console.destroy();
-  
   }
 
-  // Met à jour une console
+ 
   public async updateConsole(
     id: number,
     name?: string,
